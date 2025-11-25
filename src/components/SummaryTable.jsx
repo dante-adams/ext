@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ClipboardList } from 'lucide-react';
 
@@ -6,21 +7,21 @@ const SummaryTable = ({ batches }) => {
         <div className="card">
             <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <ClipboardList size={20} className="text-purple-400" />
-                Production Summary
+                Сводка Производства
             </h2>
 
             <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="border-b border-slate-700 text-slate-400 text-sm">
-                            <th className="py-3 px-2">Date</th>
-                            <th className="py-3 px-2">Shift</th>
-                            <th className="py-3 px-2">Batch</th>
-                            <th className="py-3 px-2">Extruder</th>
-                            <th className="py-3 px-2">Team</th>
-                            <th className="py-3 px-2 text-right">Materials (kg)</th>
-                            <th className="py-3 px-2 text-right">Waste (kg)</th>
-                            <th className="py-3 px-2 text-right">Net Prod. (kg)</th>
+                            <th className="py-3 px-2">Дата</th>
+                            <th className="py-3 px-2">Смена</th>
+                            <th className="py-3 px-2">Партия</th>
+                            <th className="py-3 px-2">Экструдер</th>
+                            <th className="py-3 px-2">Бригада</th>
+                            <th className="py-3 px-2 text-right">Материалы (кг)</th>
+                            <th className="py-3 px-2 text-right">Отходы (кг)</th>
+                            <th className="py-3 px-2 text-right">Нетто (кг)</th>
                         </tr>
                     </thead>
                     <tbody className="text-slate-200">
@@ -35,7 +36,7 @@ const SummaryTable = ({ batches }) => {
                                         <td className="py-3 px-2">{batch.shiftData.date || '-'}</td>
                                         <td className="py-3 px-2">
                                             <span className="font-mono">{batch.shiftData.shiftNumber || '-'}</span>
-                                            <span className="text-xs text-slate-500 ml-1">({batch.shiftData.type})</span>
+                                            <span className="text-xs text-slate-500 ml-1">({batch.shiftData.type === 'day' ? 'День' : 'Ночь'})</span>
                                         </td>
                                         <td className="py-3 px-2 font-medium text-blue-300">{batch.name}</td>
                                         <td className="py-3 px-2">{batch.shiftData.extruder || '-'}</td>
@@ -55,7 +56,7 @@ const SummaryTable = ({ batches }) => {
                         ) : (
                             <tr>
                                 <td colSpan="8" className="py-8 text-center text-slate-500 italic">
-                                    No production data recorded yet.
+                                    Нет данных о производстве.
                                 </td>
                             </tr>
                         )}

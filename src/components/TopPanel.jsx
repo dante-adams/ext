@@ -16,14 +16,14 @@ const TopPanel = ({ batches, currentBatchId, onAddBatch, onDeleteBatch, onSelect
     return (
         <div className="card mb-6">
             <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-white">Batch Management</h2>
+                <h2 className="text-xl font-semibold text-white">Управление Партиями</h2>
                 <div className="flex gap-2">
                     {!isAdding ? (
                         <button
                             onClick={() => setIsAdding(true)}
                             className="btn btn-primary flex gap-2 items-center"
                         >
-                            <Plus size={18} /> New Batch
+                            <Plus size={18} /> Новая Партия
                         </button>
                     ) : (
                         <div className="flex gap-2">
@@ -31,26 +31,26 @@ const TopPanel = ({ batches, currentBatchId, onAddBatch, onDeleteBatch, onSelect
                                 type="text"
                                 value={newBatchName}
                                 onChange={(e) => setNewBatchName(e.target.value)}
-                                placeholder="Batch Name"
+                                placeholder="Название партии"
                                 className="w-40"
                                 autoFocus
                             />
-                            <button onClick={handleAdd} className="btn btn-primary">Add</button>
-                            <button onClick={() => setIsAdding(false)} className="btn bg-slate-600 text-white">Cancel</button>
+                            <button onClick={handleAdd} className="btn btn-primary">Добавить</button>
+                            <button onClick={() => setIsAdding(false)} className="btn bg-slate-600 text-white">Отмена</button>
                         </div>
                     )}
                 </div>
             </div>
 
             <div className="flex gap-4 items-center">
-                <label className="text-slate-400">Current Batch:</label>
+                <label className="text-slate-400">Текущая партия:</label>
                 <div className="relative flex-1 max-w-md">
                     <select
                         value={currentBatchId || ''}
                         onChange={(e) => onSelectBatch(e.target.value)}
                         className="w-full appearance-none cursor-pointer"
                     >
-                        <option value="" disabled>Select a batch...</option>
+                        <option value="" disabled>Выберите партию...</option>
                         {batches.map(batch => (
                             <option key={batch.id} value={batch.id}>
                                 {batch.name} - {new Date(batch.createdAt).toLocaleDateString()}
@@ -64,9 +64,9 @@ const TopPanel = ({ batches, currentBatchId, onAddBatch, onDeleteBatch, onSelect
                     <button
                         onClick={() => onDeleteBatch(currentBatchId)}
                         className="btn btn-danger flex gap-2 items-center ml-auto"
-                        title="Delete current batch"
+                        title="Удалить текущую партию"
                     >
-                        <Trash2 size={18} /> Delete
+                        <Trash2 size={18} /> Удалить
                     </button>
                 )}
             </div>

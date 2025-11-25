@@ -59,7 +59,7 @@ function App() {
   };
 
   const handleDeleteBatch = (id) => {
-    if (window.confirm('Are you sure you want to delete this batch?')) {
+    if (window.confirm('Вы уверены, что хотите удалить эту партию?')) {
       const newBatches = batches.filter(b => b.id !== id);
       setBatches(newBatches);
       if (currentBatchId === id) {
@@ -133,8 +133,8 @@ function App() {
   return (
     <div className="app-container min-h-screen pb-20">
       <header className="main-header mb-8">
-        <h1>Extruder Portal</h1>
-        <p className="text-slate-400 mt-2">Shift Data Entry & Management</p>
+        <h1>Портал Экструдера</h1>
+        <p className="text-slate-400 mt-2">Ввод и управление данными смены</p>
       </header>
 
       <TopPanel
@@ -171,8 +171,8 @@ function App() {
         </div>
       ) : (
         <div className="text-center py-20 bg-slate-800/50 rounded-xl border border-dashed border-slate-700">
-          <h3 className="text-xl text-slate-300 font-medium mb-2">No Batch Selected</h3>
-          <p className="text-slate-500">Create a new batch or select an existing one to start entering data.</p>
+          <h3 className="text-xl text-slate-300 font-medium mb-2">Партия не выбрана</h3>
+          <p className="text-slate-500">Создайте новую партию или выберите существующую для ввода данных.</p>
         </div>
       )}
     </div>
