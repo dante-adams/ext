@@ -79,12 +79,13 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 12px 24px;
-    /* Reduced padding */
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
 
 .header-title {
-    margin-bottom: 12px;
-    /* Reduced margin */
+    flex-shrink: 0;
 }
 
 .header-title h1 {
@@ -105,11 +106,15 @@ body {
 
 /* Batch Panel - New Grid Layout */
 .batch-panel-new {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 24px;
 }
 
 .batch-panel-header {
-    margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 .batch-add-modal {
@@ -152,42 +157,46 @@ body {
 }
 
 .batch-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 16px;
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    overflow-x: auto;
+    padding: 4px 0;
 }
 
 .batch-card {
     background-color: var(--color-bg-secondary);
     border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--radius-lg);
-    padding: 20px;
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
+    min-width: 140px;
+    flex-shrink: 0;
 }
 
 .batch-card:hover {
     border-color: var(--color-accent);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
 
 .batch-card-active {
     border-color: var(--color-accent);
     background-color: rgba(0, 122, 255, 0.05);
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+    box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
 }
 
 .batch-card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .batch-card-header h4 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--color-text-primary);
     margin: 0;
@@ -200,7 +209,7 @@ body {
     border: none;
     color: var(--color-text-muted);
     cursor: pointer;
-    padding: 4px;
+    padding: 2px;
     border-radius: var(--radius-sm);
     transition: all 0.2s;
     flex-shrink: 0;
@@ -216,7 +225,7 @@ body {
 }
 
 .batch-card-date {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--color-text-muted);
 }
 
@@ -386,7 +395,7 @@ body {
 .card {
     background-color: var(--color-bg-secondary);
     border-radius: var(--radius-lg);
-    padding: 24px;
+    padding: 16px;
     box-shadow: var(--shadow-md);
     border: 1px solid rgba(0, 0, 0, 0.06);
     margin-bottom: 20px;
