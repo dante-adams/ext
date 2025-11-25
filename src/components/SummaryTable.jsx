@@ -21,6 +21,7 @@ const SummaryTable = ({ batches }) => {
                             <th className="py-3 px-2">Бригада</th>
                             <th className="py-3 px-2 text-right">Материалы (кг)</th>
                             <th className="py-3 px-2 text-right">Отходы (кг)</th>
+                            <th className="py-3 px-2 text-right">Отходы (%)</th>
                             <th className="py-3 px-2 text-right">Нетто (кг)</th>
                         </tr>
                     </thead>
@@ -30,6 +31,7 @@ const SummaryTable = ({ batches }) => {
                                 const totalMaterials = batch.materials.reduce((sum, m) => sum + (parseFloat(m.quantity) || 0), 0);
                                 const waste = parseFloat(batch.waste) || 0;
                                 const netProduction = totalMaterials - waste;
+                                const wastePercentage = totalMaterials > 0 ? (waste / totalMaterials * 100) : 0;
 
                                 return (
                                     <tr key={batch.id} className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors">
@@ -49,13 +51,14 @@ const SummaryTable = ({ batches }) => {
                                         </td>
                                         <td className="py-3 px-2 text-right font-mono">{totalMaterials.toFixed(2)}</td>
                                         <td className="py-3 px-2 text-right font-mono text-red-400">{waste.toFixed(2)}</td>
+                                        <td className="py-3 px-2 text-right font-mono text-orange-400">{wastePercentage.toFixed(1)}%</td>
                                         <td className="py-3 px-2 text-right font-mono text-green-400 font-bold">{netProduction.toFixed(2)}</td>
                                     </tr>
                                 );
                             })
                         ) : (
                             <tr>
-                                <td colSpan="8" className="py-8 text-center text-slate-500 italic">
+                                <td colSpan="9" className="py-8 text-center text-slate-500 italic">
                                     Нет данных о производстве.
                                 </td>
                             </tr>

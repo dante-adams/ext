@@ -660,6 +660,11 @@ input::placeholder {
     color: var(--color-danger);
 }
 
+.text-orange-400 {
+    color: var(--color-warning);
+}
+
+
 .border-slate-600 {
     border-color: rgba(0, 0, 0, 0.1);
 }
