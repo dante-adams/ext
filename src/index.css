@@ -59,8 +59,8 @@ body {
 
 .app-container {
     min-height: 100vh;
-    padding-top: 140px;
-    /* Space for sticky header */
+    padding-top: 120px;
+    /* Reduced space for narrower sticky header */
 }
 
 /* Sticky Header */
@@ -78,15 +78,18 @@ body {
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 16px 24px;
+    padding: 12px 24px;
+    /* Reduced padding */
 }
 
 .header-title {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+    /* Reduced margin */
 }
 
 .header-title h1 {
-    font-size: 28px;
+    font-size: 24px;
+    /* Smaller title */
     font-weight: 700;
     letter-spacing: -0.5px;
     color: var(--color-text-primary);
@@ -94,7 +97,8 @@ body {
 }
 
 .header-title p {
-    font-size: 15px;
+    font-size: 14px;
+    /* Smaller subtitle */
     color: var(--color-text-secondary);
     font-weight: 400;
 }
@@ -102,7 +106,8 @@ body {
 /* Batch Panel */
 .batch-panel {
     display: flex;
-    gap: 16px;
+    gap: 12px;
+    /* Reduced gap */
     align-items: center;
     flex-wrap: wrap;
 }
@@ -124,7 +129,8 @@ body {
 }
 
 .batch-selector label {
-    font-size: 15px;
+    font-size: 14px;
+    /* Smaller label */
     color: var(--color-text-secondary);
     white-space: nowrap;
 }
@@ -155,7 +161,8 @@ body {
 .main-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px 40px;
+    padding: 24px 24px 40px;
+    /* Added top padding */
 }
 
 /* Empty State */
@@ -681,4 +688,271 @@ th {
 
 .bg-indigo-600 {
     background-color: #5856d6;
+}
+
+/* Material Row Styles */
+.material-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.material-name-input {
+    /* Uses default input styles */
+}
+
+.material-quantity-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-md);
+    padding: 0 16px;
+    min-height: var(--touch-target-min);
+}
+
+.material-quantity-input {
+    border: none;
+    background: transparent;
+    padding: 0;
+    min-height: auto;
+    width: 80px;
+    text-align: right;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.material-quantity-input:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+
+.quantity-unit,
+.waste-unit {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.material-delete-btn {
+    padding: 12px;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    border-radius: var(--radius-md);
+}
+
+.material-delete-btn:hover {
+    color: var(--color-danger);
+    background-color: rgba(255, 59, 48, 0.1);
+}
+
+.material-delete-btn:active {
+    transform: scale(0.95);
+}
+
+.empty-materials {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--color-text-muted);
+    border: 2px dashed rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg);
+    font-size: 15px;
+}
+
+/* Waste Input */
+.waste-input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-md);
+    padding: 0 16px;
+    min-height: var(--touch-target-min);
+    max-width: 300px;
+}
+
+.waste-input {
+    border: none;
+    background: transparent;
+    padding: 0;
+    min-height: auto;
+    width: 100%;
+    text-align: right;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+    color: var(--color-text-primary);
+}
+
+.waste-input:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+
+/* Numeric Keyboard */
+.keyboard-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.keyboard-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.keyboard-container {
+    position: relative;
+    z-index: 2001;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+}
+
+.numeric-keyboard {
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.keyboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.keyboard-value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+    color: var(--color-text-primary);
+}
+
+.keyboard-close {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+}
+
+.keyboard-close:hover {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.keyboard-close:active {
+    transform: scale(0.95);
+}
+
+.keyboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.keyboard-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.keyboard-key {
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.keyboard-key:hover {
+    background-color: #d1d1d6;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.keyboard-key:active {
+    transform: scale(0.95);
+    background-color: #c7c7cc;
+}
+
+.keyboard-key-backspace {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-danger);
+    font-size: 28px;
+}
+
+.keyboard-done {
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-sm);
+    margin-top: 8px;
+}
+
+.keyboard-done:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.keyboard-done:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+    .keyboard-container {
+        max-width: 100%;
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .numeric-keyboard {
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
 }
