@@ -1,20 +1,47 @@
-import React from 'react';
-import { Users, UserPlus, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Users, UserPlus, X, Plus, Trash2 } from 'lucide-react';
+
+const SHIFT_OPTIONS = ['Смена 1', 'Смена 2', 'Смена 3'];
+const EXTRUDER_OPTIONS = ['НТ1', 'НТ2', 'НТ3', 'НТ4'];
 
 const ShiftInfo = ({ shiftData, onUpdate, teamMembers, onAddMember, onRemoveMember }) => {
-    const [newMember, setNewMember] = React.useState('');
+    const [newMember, setNewMember] = useState('');
+    const [availableEmployees, setAvailableEmployees] = useState(() => {
+        const saved = localStorage.getItem('available_employees');
+        return saved ? JSON.parse(saved) : ['Иванов И.И.', 'Петров П.П.', 'Сидоров С.С.'];
+    });
+    const [isAddingEmployee, setIsAddingEmployee] = useState(false);
+    const [newEmployeeName, setNewEmployeeName] = useState('');
 
     const handleAddMember = (e) => {
         e.preventDefault();
-        if (newMember.trim()) {
+        if (newMember.trim() && !teamMembers.includes(newMember)) {
             onAddMember(newMember);
             setNewMember('');
         }
     };
 
+    const handleAddNewEmployee = () => {
+        if (newEmployeeName.trim() && !availableEmployees.includes(newEmployeeName)) {
+            const updated = [...availableEmployees, newEmployeeName];
+            setAvailableEmployees(updated);
+            localStorage.setItem('available_employees', JSON.stringify(updated));
+            setNewEmployeeName('');
+            setIsAddingEmployee(false);
+        }
+    };
+
+    const handleRemoveEmployee = (employeeName) => {
+        if (window.confirm(`Удалить ${employeeName} из списка сотрудников?`)) {
+            const updated = availableEmployees.filter(e => e !== employeeName);
+            setAvailableEmployees(updated);
+            localStorage.setItem('available_employees', JSON.stringify(updated));
+        }
+    };
+
     return (
-        <div className="card mb-6">
-            <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+        <div className="card">
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <Users size={20} className="text-blue-400" />
                 Информация о Смене
             </h2>
@@ -31,22 +58,28 @@ const ShiftInfo = ({ shiftData, onUpdate, teamMembers, onAddMember, onRemoveMemb
 
                 <div>
                     <label className="block text-sm text-slate-400 mb-1">Номер Смены</label>
-                    <input
-                        type="text"
+                    <select
                         value={shiftData.shiftNumber}
                         onChange={(e) => onUpdate('shiftNumber', e.target.value)}
-                        placeholder="напр. 1, 2, A, B"
-                    />
+                    >
+                        <option value="">Выберите смену...</option>
+                        {SHIFT_OPTIONS.map(shift => (
+                            <option key={shift} value={shift}>{shift}</option>
+                        ))}
+                    </select>
                 </div>
 
                 <div>
                     <label className="block text-sm text-slate-400 mb-1">Экструдер</label>
-                    <input
-                        type="text"
+                    <select
                         value={shiftData.extruder}
                         onChange={(e) => onUpdate('extruder', e.target.value)}
-                        placeholder="ID Машины"
-                    />
+                    >
+                        <option value="">Выберите экструдер...</option>
+                        {EXTRUDER_OPTIONS.map(ext => (
+                            <option key={ext} value={ext}>{ext}</option>
+                        ))}
+                    </select>
                 </div>
 
                 <div>
@@ -71,7 +104,16 @@ const ShiftInfo = ({ shiftData, onUpdate, teamMembers, onAddMember, onRemoveMemb
             </div>
 
             <div className="border-t border-slate-700 pt-4">
-                <label className="block text-sm text-slate-400 mb-2">Состав Бригады</label>
+                <div className="flex justify-between items-center mb-2">
+                    <label className="block text-sm text-slate-400">Состав Бригады</label>
+                    <button
+                        onClick={() => setIsAddingEmployee(true)}
+                        className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1"
+                    >
+                        <Plus size={14} /> Управление сотрудниками
+                    </button>
+                </div>
+
                 <div className="flex flex-wrap gap-2 mb-3">
                     {teamMembers.map((member, index) => (
                         <span key={index} className="inline-flex items-center gap-1 bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm border border-slate-600">
@@ -87,18 +129,49 @@ const ShiftInfo = ({ shiftData, onUpdate, teamMembers, onAddMember, onRemoveMemb
                 </div>
 
                 <form onSubmit={handleAddMember} className="flex gap-2">
-                    <input
-                        type="text"
+                    <select
                         value={newMember}
                         onChange={(e) => setNewMember(e.target.value)}
-                        placeholder="Имя сотрудника..."
                         className="flex-1"
-                    />
+                    >
+                        <option value="">Выберите сотрудника...</option>
+                        {availableEmployees.filter(emp => !teamMembers.includes(emp)).map(emp => (
+                            <option key={emp} value={emp}>{emp}</option>
+                        ))}
+                    </select>
                     <button type="submit" className="btn btn-primary px-3">
                         <UserPlus size={18} />
                     </button>
                 </form>
             </div>
+
+            {isAddingEmployee && (
+                <div className="employee-modal">
+                    <div className="employee-modal-content">
+                        <h3>Управление сотрудниками</h3>
+                        <div className="employee-list">
+                            {availableEmployees.map(emp => (
+                                <div key={emp} className="employee-item">
+                                    <span>{emp}</span>
+                                    <button onClick={() => handleRemoveEmployee(emp)} className="employee-delete">
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="employee-add">
+                            <input
+                                type="text"
+                                value={newEmployeeName}
+                                onChange={(e) => setNewEmployeeName(e.target.value)}
+                                placeholder="Имя нового сотрудника"
+                            />
+                            <button onClick={handleAddNewEmployee} className="btn btn-primary">Добавить</button>
+                        </div>
+                        <button onClick={() => setIsAddingEmployee(false)} className="btn btn-secondary mt-3">Закрыть</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

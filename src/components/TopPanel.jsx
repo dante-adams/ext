@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Trash2, ChevronDown } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 
 const TopPanel = ({ batches, currentBatchId, onAddBatch, onDeleteBatch, onSelectBatch }) => {
     const [isAdding, setIsAdding] = useState(false);
@@ -14,57 +14,60 @@ const TopPanel = ({ batches, currentBatchId, onAddBatch, onDeleteBatch, onSelect
     };
 
     return (
-        <div className="batch-panel">
-            <div className="batch-controls">
-                {!isAdding ? (
-                    <button
-                        onClick={() => setIsAdding(true)}
-                        className="btn btn-primary"
-                    >
-                        <Plus size={18} /> Новая Партия
-                    </button>
-                ) : (
-                    <div className="flex gap-2">
+        <div className="batch-panel-new">
+            <div className="batch-panel-header">
+                <button
+                    onClick={() => setIsAdding(true)}
+                    className="btn btn-primary"
+                >
+                    <Plus size={18} /> Новая Партия
+                </button>
+            </div>
+
+            {isAdding && (
+                <div className="batch-add-modal">
+                    <div className="batch-add-content">
+                        <h3>Создать новую партию</h3>
                         <input
                             type="text"
                             value={newBatchName}
                             onChange={(e) => setNewBatchName(e.target.value)}
                             placeholder="Название партии"
-                            className="batch-input"
                             autoFocus
                         />
-                        <button onClick={handleAdd} className="btn btn-primary">Добавить</button>
-                        <button onClick={() => setIsAdding(false)} className="btn btn-secondary">Отмена</button>
+                        <div className="batch-add-actions">
+                            <button onClick={handleAdd} className="btn btn-primary">Создать</button>
+                            <button onClick={() => setIsAdding(false)} className="btn btn-secondary">Отмена</button>
+                        </div>
                     </div>
-                )}
-            </div>
-
-            <div className="batch-selector">
-                <label>Текущая партия:</label>
-                <div className="select-wrapper">
-                    <select
-                        value={currentBatchId || ''}
-                        onChange={(e) => onSelectBatch(e.target.value)}
-                    >
-                        <option value="" disabled>Выберите партию...</option>
-                        {batches.map(batch => (
-                            <option key={batch.id} value={batch.id}>
-                                {batch.name} - {new Date(batch.createdAt).toLocaleDateString()}
-                            </option>
-                        ))}
-                    </select>
-                    <ChevronDown className="select-icon" size={18} />
                 </div>
+            )}
 
-                {currentBatchId && (
-                    <button
-                        onClick={() => onDeleteBatch(currentBatchId)}
-                        className="btn btn-danger"
-                        title="Удалить текущую партию"
+            <div className="batch-grid">
+                {batches.map(batch => (
+                    <div
+                        key={batch.id}
+                        className={`batch-card ${currentBatchId === batch.id ? 'batch-card-active' : ''}`}
+                        onClick={() => onSelectBatch(batch.id)}
                     >
-                        <Trash2 size={18} /> Удалить
-                    </button>
-                )}
+                        <div className="batch-card-header">
+                            <h4>{batch.name}</h4>
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onDeleteBatch(batch.id);
+                                }}
+                                className="batch-delete-btn"
+                                title="Удалить партию"
+                            >
+                                <Trash2 size={16} />
+                            </button>
+                        </div>
+                        <div className="batch-card-date">
+                            {new Date(batch.createdAt).toLocaleDateString('ru-RU')}
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

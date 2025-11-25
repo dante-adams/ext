@@ -103,66 +103,208 @@ body {
     font-weight: 400;
 }
 
-/* Batch Panel */
-.batch-panel {
+/* Batch Panel - New Grid Layout */
+.batch-panel-new {
+    margin-bottom: 24px;
+}
+
+.batch-panel-header {
+    margin-bottom: 20px;
+}
+
+.batch-add-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 3000;
     display: flex;
-    gap: 12px;
-    /* Reduced gap */
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.batch-controls {
-    display: flex;
-    gap: 8px;
-}
-
-.batch-input {
-    width: 200px;
-}
-
-.batch-selector {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex: 1;
-}
-
-.batch-selector label {
-    font-size: 14px;
-    /* Smaller label */
-    color: var(--color-text-secondary);
-    white-space: nowrap;
-}
-
-.select-wrapper {
-    position: relative;
-    flex: 1;
+.batch-add-content {
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 32px;
     max-width: 400px;
+    width: 90%;
+    box-shadow: var(--shadow-lg);
 }
 
-.select-wrapper select {
-    width: 100%;
-    appearance: none;
+.batch-add-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--color-text-primary);
+}
+
+.batch-add-content input {
+    margin-bottom: 20px;
+}
+
+.batch-add-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.batch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.batch-card {
+    background-color: var(--color-bg-secondary);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg);
+    padding: 20px;
     cursor: pointer;
-    padding-right: 40px;
+    transition: all 0.2s ease;
+    position: relative;
 }
 
-.select-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+.batch-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.batch-card-active {
+    border-color: var(--color-accent);
+    background-color: rgba(0, 122, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.batch-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.batch-card-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    flex: 1;
+    word-break: break-word;
+}
+
+.batch-delete-btn {
+    background: transparent;
+    border: none;
     color: var(--color-text-muted);
-    pointer-events: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.batch-delete-btn:hover {
+    color: var(--color-danger);
+    background-color: rgba(255, 59, 48, 0.1);
+}
+
+.batch-delete-btn:active {
+    transform: scale(0.9);
+}
+
+.batch-card-date {
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+/* Employee Management Modal */
+.employee-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.employee-modal-content {
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.employee-modal-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--color-text-primary);
+}
+
+.employee-list {
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.employee-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+}
+
+.employee-item span {
+    font-size: 15px;
+    color: var(--color-text-primary);
+}
+
+.employee-delete {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.employee-delete:hover {
+    color: var(--color-danger);
+    background-color: rgba(255, 59, 48, 0.1);
+}
+
+.employee-add {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.employee-add input {
+    flex: 1;
 }
 
 /* Main Content */
 .main-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 24px 24px 40px;
-    /* Added top padding */
+    padding: 50px 24px 40px;
+    /* Changed to 50px top spacing */
 }
 
 /* Empty State */
