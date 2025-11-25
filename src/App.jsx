@@ -1,4 +1,4 @@
-```
+
 import React, { useState, useEffect } from 'react';
 import TopPanel from './components/TopPanel';
 import ShiftInfo from './components/ShiftInfo';
@@ -26,7 +26,7 @@ function App() {
     const saved = localStorage.getItem('extruder_batches');
     return saved ? JSON.parse(saved) : [];
   });
-  
+
   const [currentBatchId, setCurrentBatchId] = useState(null);
 
   // Persist to local storage
@@ -50,8 +50,8 @@ function App() {
       name,
       createdAt: new Date().toISOString(),
       // Copy some defaults from previous batch if exists for convenience
-      shiftData: batches.length > 0 
-        ? { ...batches[batches.length - 1].shiftData } 
+      shiftData: batches.length > 0
+        ? { ...batches[batches.length - 1].shiftData }
         : { ...INITIAL_BATCH_STATE.shiftData }
     };
     setBatches([...batches, newBatch]);
@@ -137,7 +137,7 @@ function App() {
         <p className="text-slate-400 mt-2">Shift Data Entry & Management</p>
       </header>
 
-      <TopPanel 
+      <TopPanel
         batches={batches}
         currentBatchId={currentBatchId}
         onAddBatch={handleAddBatch}
@@ -148,14 +148,14 @@ function App() {
       {currentBatch ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="space-y-6">
-            <ShiftInfo 
+            <ShiftInfo
               shiftData={currentBatch.shiftData}
               onUpdate={handleUpdateShift}
               teamMembers={currentBatch.teamMembers}
               onAddMember={handleAddTeamMember}
               onRemoveMember={handleRemoveTeamMember}
             />
-            <MaterialsPanel 
+            <MaterialsPanel
               materials={currentBatch.materials}
               onUpdateMaterial={handleUpdateMaterial}
               onAddMaterial={handleAddMaterial}
@@ -164,7 +164,7 @@ function App() {
               onUpdateWaste={handleUpdateWaste}
             />
           </div>
-          
+
           <div>
             <SummaryTable batches={batches} />
           </div>
@@ -180,4 +180,4 @@ function App() {
 }
 
 export default App;
-```
+
