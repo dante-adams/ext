@@ -150,7 +150,7 @@ function App() {
 
       <main className="main-content">
         {currentBatch ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="content-grid">
             <div className="space-y-6">
               <ShiftInfo
                 shiftData={currentBatch.shiftData}
@@ -170,7 +170,7 @@ function App() {
             </div>
 
             <div>
-              <SummaryTable batches={batches} />
+              <SummaryTable batch={currentBatch} />
             </div>
           </div>
         ) : (
