@@ -131,50 +131,55 @@ function App() {
   };
 
   return (
-    <div className="app-container min-h-screen pb-20">
-      <header className="main-header mb-8">
-        <h1>Портал Экструдера</h1>
-        <p className="text-slate-400 mt-2">Ввод и управление данными смены</p>
+    <div className="app-container">
+      <header className="sticky-header">
+        <div className="header-content">
+          <div className="header-title">
+            <h1>Портал Экструдера</h1>
+            <p>Ввод и управление данными смены</p>
+          </div>
+          <TopPanel
+            batches={batches}
+            currentBatchId={currentBatchId}
+            onAddBatch={handleAddBatch}
+            onDeleteBatch={handleDeleteBatch}
+            onSelectBatch={setCurrentBatchId}
+          />
+        </div>
       </header>
 
-      <TopPanel
-        batches={batches}
-        currentBatchId={currentBatchId}
-        onAddBatch={handleAddBatch}
-        onDeleteBatch={handleDeleteBatch}
-        onSelectBatch={setCurrentBatchId}
-      />
+      <main className="main-content">
+        {currentBatch ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-6">
+              <ShiftInfo
+                shiftData={currentBatch.shiftData}
+                onUpdate={handleUpdateShift}
+                teamMembers={currentBatch.teamMembers}
+                onAddMember={handleAddTeamMember}
+                onRemoveMember={handleRemoveTeamMember}
+              />
+              <MaterialsPanel
+                materials={currentBatch.materials}
+                onUpdateMaterial={handleUpdateMaterial}
+                onAddMaterial={handleAddMaterial}
+                onRemoveMaterial={handleRemoveMaterial}
+                waste={currentBatch.waste}
+                onUpdateWaste={handleUpdateWaste}
+              />
+            </div>
 
-      {currentBatch ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <div className="space-y-6">
-            <ShiftInfo
-              shiftData={currentBatch.shiftData}
-              onUpdate={handleUpdateShift}
-              teamMembers={currentBatch.teamMembers}
-              onAddMember={handleAddTeamMember}
-              onRemoveMember={handleRemoveTeamMember}
-            />
-            <MaterialsPanel
-              materials={currentBatch.materials}
-              onUpdateMaterial={handleUpdateMaterial}
-              onAddMaterial={handleAddMaterial}
-              onRemoveMaterial={handleRemoveMaterial}
-              waste={currentBatch.waste}
-              onUpdateWaste={handleUpdateWaste}
-            />
+            <div>
+              <SummaryTable batches={batches} />
+            </div>
           </div>
-
-          <div>
-            <SummaryTable batches={batches} />
+        ) : (
+          <div className="empty-state">
+            <h3>Партия не выбрана</h3>
+            <p>Создайте новую партию или выберите существующую для ввода данных.</p>
           </div>
-        </div>
-      ) : (
-        <div className="text-center py-20 bg-slate-800/50 rounded-xl border border-dashed border-slate-700">
-          <h3 className="text-xl text-slate-300 font-medium mb-2">Партия не выбрана</h3>
-          <p className="text-slate-500">Создайте новую партию или выберите существующую для ввода данных.</p>
-        </div>
-      )}
+        )}
+      </main>
     </div>
   );
 }
